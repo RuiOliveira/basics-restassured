@@ -1,12 +1,16 @@
+package googlemaps;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Main {
 
-    public static void main(String[] args) {
+    @Test
+    public void Test1() {
 
         //BaseURL
         RestAssured.baseURI="https://www.google.com";
@@ -27,7 +31,9 @@ public class Main {
                 when().
                 get("/maps/api/place/nearbysearch/json").
                 then().assertThat().statusCode(404).and().contentType(ContentType.JSON).and().
-                body("results[0].geometry.location.lat", equalTo("-33.8688197"));
+                body("results[0].geometry.location.lat", equalTo("-33.8688197")).and().
+                body("result[0].place_id", equalTo("value")).and().
+                header("Server", "pablo");
 
 
 
